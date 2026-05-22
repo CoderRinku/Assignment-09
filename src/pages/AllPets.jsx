@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const AllPets = () => {
     const [pets, setPets] = useState([]);
@@ -20,9 +21,12 @@ const AllPets = () => {
                         <p className="text-gray-600 mb-1"><span className="font-semibold text-gray-800">Category:</span> {pet.category}</p>
                         <p className="text-gray-600 mb-1"><span className="font-semibold text-gray-800">Age:</span> {pet.age}</p>
                         <p className="text-gray-600 mb-4"><span className="font-semibold text-gray-800">Location:</span> {pet.location}</p>
-                        <button className="w-full bg-blue-600 text-white py-2.5 rounded-md font-semibold hover:bg-blue-700 transition">
-                            View Details
-                        </button>
+                        
+                        <Link to={`/pet/${pet._id}`}>
+                            <button className="w-full bg-blue-600 text-white py-2.5 rounded-md font-semibold hover:bg-blue-700 transition">
+                                View Details
+                            </button>
+                        </Link>
                     </div>
                 ))}
             </div>
