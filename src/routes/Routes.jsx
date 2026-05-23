@@ -8,6 +8,7 @@ import AddPet from "../pages/AddPet";
 import AllPets from "../pages/AllPets";
 import PetDetails from "../pages/PetDetails";
 import MyRequests from "../pages/MyRequests";
+import MyAddedPets from "../pages/MyAddedPets";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: "/my-requests",
                 element: <PrivateRoute><MyRequests /></PrivateRoute>
+            },
+            {
+                path: "/my-added-pets",
+                element: <PrivateRoute><MyAddedPets /></PrivateRoute>
             }
         ]
     }
