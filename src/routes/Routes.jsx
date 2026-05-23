@@ -11,6 +11,7 @@ import MyRequests from "../pages/MyRequests";
 import MyAddedPets from "../pages/MyAddedPets";
 import UpdatePet from "../pages/UpdatePet";
 import PrivateRoute from "./PrivateRoute";
+import ManageRequests from "../pages/ManageRequests";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: "/update-pet/:id",
                 element: <PrivateRoute><UpdatePet /></PrivateRoute>
+            },
+            {
+                path: "/manage-requests",
+                element: <PrivateRoute><ManageRequests /></PrivateRoute>
             }
         ]
     }
