@@ -9,6 +9,7 @@ import AllPets from "../pages/AllPets";
 import PetDetails from "../pages/PetDetails";
 import MyRequests from "../pages/MyRequests";
 import MyAddedPets from "../pages/MyAddedPets";
+import UpdatePet from "../pages/UpdatePet";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             {
                 path: "/my-added-pets",
                 element: <PrivateRoute><MyAddedPets /></PrivateRoute>
+            },
+            {
+                path: "/update-pet/:id",
+                element: <PrivateRoute><UpdatePet /></PrivateRoute>
             }
         ]
     }
