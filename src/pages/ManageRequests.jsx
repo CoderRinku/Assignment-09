@@ -15,7 +15,12 @@ const ManageRequests = () => {
 
     const fetchRequests = () => {
         setLoading(true);
-        fetch(`http://localhost:5000/requests?ownerEmail=${user.email}`)
+        const token = localStorage.getItem("token");
+        fetch(`http://localhost:5000/requests?ownerEmail=${user.email}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setRequests(data);
@@ -40,9 +45,13 @@ const ManageRequests = () => {
             confirmButtonText: `Yes, ${actionLabel}`,
         }).then((result) => {
             if (result.isConfirmed) {
+                const token = localStorage.getItem("token");
                 fetch(`http://localhost:5000/requests/${requestId}`, {
                     method: "PUT",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
                     body: JSON.stringify({ status: newStatus, petId }),
                 })
                     .then(res => res.json())
