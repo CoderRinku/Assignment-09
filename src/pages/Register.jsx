@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const { createUser, googleSignIn } = useContext(AuthContext);
@@ -16,6 +17,7 @@ const Register = () => {
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
 
         setError("");
 
@@ -28,15 +30,25 @@ const Register = () => {
         } else if (!/[a-z]/.test(password)) {
             setError("Password must contain at least one lowercase letter");
             return;
+        } else if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            return;
         }
 
         createUser(email, password)
-            .then(result => {
+            .then(() => {
                 updateProfile(auth.currentUser, {
                     displayName: name, photoURL: photo
                 }).then(() => {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Registered!",
+                        text: "Registration completed successfully!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     navigate("/");
-                }).catch(err => console.log(err));
+                }).catch(err => setError(err.message));
             })
             .catch(err => {
                 setError(err.message);
@@ -45,7 +57,7 @@ const Register = () => {
 
     const handleGoogleLogin = () => {
         googleSignIn()
-            .then(result => {
+            .then(() => {
                 navigate("/");
             })
             .catch(err => {
@@ -72,6 +84,9 @@ const Register = () => {
                         </div>
                         <div>
                             <input name="password" type="password" required className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                        </div>
+                        <div>
+                            <input name="confirmPassword" type="password" required className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Confirm Password" />
                         </div>
                     </div>
 

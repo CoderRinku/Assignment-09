@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { API_URL } from "../config";
 import Swal from "sweetalert2";
 
 const UpdatePet = () => {
@@ -18,7 +19,7 @@ const UpdatePet = () => {
     });
 
     useEffect(() => {
-        fetch(`http://localhost:5000/pets/${id}`)
+        fetch(`${API_URL}/pets/${id}`)
             .then(res => res.json())
             .then(data => setPetData(data));
     }, [id]);
@@ -33,10 +34,12 @@ const UpdatePet = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        fetch(`http://localhost:5000/pets/${id}`, {
+        const token = localStorage.getItem("token");
+        fetch(`${API_URL}/pets/${id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(petData)
         })
@@ -51,7 +54,7 @@ const UpdatePet = () => {
                         showConfirmButton: false
                     });
                     setTimeout(() => {
-                        navigate('/my-added-pets');
+                        navigate('/dashboard/my-listings');
                     }, 2000);
                 }
             });
