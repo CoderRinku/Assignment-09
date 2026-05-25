@@ -33,7 +33,7 @@ const UpdatePet = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        const { _id, ...updatedData } = petData;
         const token = localStorage.getItem("token");
         fetch(`${API_URL}/pets/${id}`, {
             method: 'PUT',
@@ -41,11 +41,11 @@ const UpdatePet = () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify(petData)
+            body: JSON.stringify(updatedData)
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount > 0) {
+                if (data.modifiedCount > 0 || data.matchedCount > 0) {
                     Swal.fire({
                         title: 'Success!',
                         text: 'Pet updated successfully!',
