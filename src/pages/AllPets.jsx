@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../config";
 
 const AllPets = () => {
     const [pets, setPets] = useState([]);
@@ -17,7 +18,7 @@ const AllPets = () => {
         if (search) params.append('search', search);
         if (category) params.append('category', category);
 
-        fetch(`http://localhost:5000/pets?${params.toString()}`)
+        fetch(`${API_URL}/pets?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
                 setPets(data);

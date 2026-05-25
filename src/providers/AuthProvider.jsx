@@ -8,6 +8,7 @@ import {
     GoogleAuthProvider
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import { API_URL } from "../config";
 
 export const AuthContext = createContext(null);
 
@@ -43,7 +44,7 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             setLoading(false);
             if (currentUser?.email) {
-                fetch("http://localhost:5000/jwt", {
+                fetch(`${API_URL}/jwt`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email: currentUser.email }),

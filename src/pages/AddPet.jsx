@@ -1,8 +1,12 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { API_URL } from "../config";
+import Swal from "sweetalert2";
 
 const AddPet = () => {
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleAddPet = (e) => {
         e.preventDefault();
@@ -27,18 +31,27 @@ const AddPet = () => {
             authorName: user?.displayName
         };
 
-        fetch('http://localhost:5000/pets', {
+        const token = localStorage.getItem("token");
+        fetch(`${API_URL}/pets`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(petData)
         })
         .then(res => res.json())
         .then(data => {
             if (data.insertedId) {
-                alert('Pet added successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Pet added successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 form.reset();
+                navigate("/dashboard/my-listings");
             }
         });
     };

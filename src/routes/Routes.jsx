@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -11,7 +12,7 @@ import MyRequests from "../pages/MyRequests";
 import MyAddedPets from "../pages/MyAddedPets";
 import UpdatePet from "../pages/UpdatePet";
 import PrivateRoute from "./PrivateRoute";
-import ManageRequests from "../pages/ManageRequests";
+import { API_URL } from "../config";
 
 const router = createBrowserRouter([
     {
@@ -36,29 +37,36 @@ const router = createBrowserRouter([
                 element: <AllPets />
             },
             {
-                path: "/add-pet",
-                element: <PrivateRoute><AddPet /></PrivateRoute>
-            },
-            {
                 path: "/pet/:id",
                 element: <PrivateRoute><PetDetails /></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/pets/${params.id}`)
-            },
-            {
-                path: "/my-requests",
-                element: <PrivateRoute><MyRequests /></PrivateRoute>
-            },
-            {
-                path: "/my-added-pets",
-                element: <PrivateRoute><MyAddedPets /></PrivateRoute>
+                loader: ({ params }) => fetch(`${API_URL}/pets/${params.id}`)
             },
             {
                 path: "/update-pet/:id",
                 element: <PrivateRoute><UpdatePet /></PrivateRoute>
+            }
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
+        errorElement: <NotFound />,
+        children: [
+            {
+                index: true,
+                element: <MyAddedPets />
             },
             {
-                path: "/manage-requests",
-                element: <PrivateRoute><ManageRequests /></PrivateRoute>
+                path: "add-pet",
+                element: <AddPet />
+            },
+            {
+                path: "my-requests",
+                element: <MyRequests />
+            },
+            {
+                path: "my-listings",
+                element: <MyAddedPets />
             }
         ]
     }
