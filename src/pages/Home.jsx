@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../config";
+import heroImg from "../assets/hero.png";
 
 const Home = () => {
     const [pets, setPets] = useState([]);
@@ -18,12 +19,45 @@ const Home = () => {
 
     return (
         <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
-            <div className="bg-blue-50 dark:bg-gray-850 py-24 text-center">
-                <h1 className="text-5xl md:text-6xl font-extrabold text-gray-800 dark:text-white mb-6 tracking-tight">Give a Pet a Loving Home</h1>
-                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto px-4">Thousands of pets are waiting for a family. Browse our available pets and find your perfect companion today.</p>
-                <Link to="/all-pets">
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-full text-lg font-semibold shadow-lg transition duration-300">Adopt Now</button>
-                </Link>
+            <div className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-850 py-16 md:py-24 border-b dark:border-gray-800">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div className="lg:col-span-7 text-left space-y-6">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/80 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider">
+                            🐾 Pet Adoption Platform
+                        </span>
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight tracking-tight">
+                            Find Your Perfect Companion & <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">Save a Life</span>
+                        </h1>
+                        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-xl">
+                            Every pet deserves a loving family, and every family deserves the unconditional love of a pet. Discover hundreds of friendly dogs, cats, and birds waiting for a forever home near you today.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                            <Link to="/all-pets">
+                                <button className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                                    Browse Pets
+                                </button>
+                            </Link>
+                            <Link to="/register">
+                                <button className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-2xl border-2 border-gray-300 dark:border-gray-700 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-300 font-bold transition-all duration-300 hover:bg-blue-50/50 dark:hover:bg-blue-900/10">
+                                    Join Our Community
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-5 relative flex justify-center items-center">
+                        <div className="absolute w-72 h-72 bg-gradient-to-tr from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-full blur-3xl opacity-30 dark:opacity-20 animate-pulse"></div>
+                        <div className="relative z-10 max-w-md w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800 transition duration-500 hover:scale-[1.02]">
+                            <img src={heroImg} alt="Loving Pets" className="w-full object-cover aspect-[4/3] md:aspect-square lg:aspect-[4/3]" />
+                            <div className="absolute -bottom-4 -left-4 z-20 bg-white/90 dark:bg-gray-850/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-lg border border-white/20 flex items-center gap-3">
+                                <span className="text-xl">🐾</span>
+                                <div>
+                                    <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">Happy Tails</p>
+                                    <p className="text-sm font-bold text-gray-800 dark:text-white">500+ Pets Adopted</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 py-20">
