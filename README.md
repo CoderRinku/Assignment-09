@@ -3,7 +3,7 @@
 Hey there! This is my Pet Adoption Platform project made with React, Tailwind CSS, Express, and MongoDB. 
 
 ## Live Link
-- Live Web Site: https://pet-adoption-platform-2ef7e.web.app
+- Live Web Site: https://pet-adoption-rinku-a9.netlify.app
 - Live Server API: https://pet-adoption-server-pied.vercel.app
 
 ## What is the purpose of this project?
